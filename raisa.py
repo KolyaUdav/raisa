@@ -5,7 +5,7 @@ import time
 import threading
 import random
 
-my_token = '403058861:AAHfigipcjV-5c9OXqUFs6bdMA7JJXZ__bY'
+my_token = 'token'
 
 def get_phrase (bot, update):
     looping = True
