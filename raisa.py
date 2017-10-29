@@ -4,8 +4,44 @@ from telegram.ext import Filters
 import time
 import threading
 import random
+import sqlite3
 
+<<<<<<< HEAD
 my_token = 'token'
+=======
+my_token = '403058861:AAHfigipcjV-5c9OXqUFs6bdMA7JJXZ__bY'
+my_db = 'raisa'
+
+def open_connect_db ():
+    global conn
+    conn = sqlite3.connect (my_db)
+    
+def create_sql_table ():
+    c = conn.cursor ()
+    c.execute ("CREATE TABLE poems (id int auto_increment primary key, poem_text varchar, count_shows int)")
+    conn.commit ()
+    c.close ()
+    
+def add_data_db ():
+    c = conn.cursor ()
+    for phrase in phrases:
+        c.execute ("INSERT INTO poems (poem_text, count_shows) VALUES (:phrase, :count_shows)", {"phrase": phrase, "count_shows": 0})
+    conn.commit ()
+    c.close ()
+    
+def get_data_db ():
+    c = conn.cursor ()
+    c.execute ("SELECT * FROM poems WHERE count_shows = %s"%(str(0)))
+    row = c.fetchall ()
+    ph_db = []
+    i = 0
+    while row is not None:
+        ph_db[i] = row[1]
+    return ph_db
+    
+def close_connect_db ():
+    conn.close ()
+>>>>>>> Added methods for working with SQLite Database
 
 def get_phrase (bot, update):
     looping = True
@@ -28,7 +64,7 @@ def handle_message (bot, update):
         for word in words:
             if word in msg_text: 
                 bot.sendMessage (chat_id=update.message.chat_id, text="Ой, ну хорошо, уговорили :)")
-                get_phrase (bot, update);
+                get_phrase (bot, update)
 
 words = [
     "стих",
@@ -73,6 +109,7 @@ phrases = [
   
 old_phrase_ind = -1;
 old_old_phrase_ind = -1;
+conn = None
     
 updater = Updater (token=my_token)
 handler = MessageHandler (Filters.text | Filters.command, handle_message)
