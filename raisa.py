@@ -9,7 +9,7 @@ import sqlite3
 <<<<<<< HEAD
 my_token = 'token'
 =======
-my_token = '403058861:AAHfigipcjV-5c9OXqUFs6bdMA7JJXZ__bY'
+my_token = 'token'
 my_db = 'raisa'
 
 def open_connect_db ():
