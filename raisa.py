@@ -6,7 +6,7 @@ import threading
 import random
 import sqlite3
 
-my_token = 'token'
+my_token = '403058861:AAHfigipcjV-5c9OXqUFs6bdMA7JJXZ__bY'
 my_db = 'raisa.db'
 
 def open_connect_db ():
@@ -40,13 +40,14 @@ def close_connect_db ():
     conn.close ()
 
 def handle_message (bot, update):
-    msg_text = update.message.text
-    msg_text = msg_text.lower ()
-    if "валентина!" in msg_text:
-        for word in words:
-            if word in msg_text: 
-                bot.sendMessage (chat_id=update.message.chat_id, text="Ой, ну хорошо, уговорили :)")
-                bot.sendMessage (chat_id=update.message.chat_id, text=get_poem_db ())
+    print (bot.message.chat_id)
+    bot.forwardMessage (chat_id=-167582961, from_chat_id=update.message.chat_id, message_id=update.message.message_id)
+    #msg_text = msg_text.lower ()
+    #if "валентина!" in msg_text:
+        #for word in words:
+            #if word in msg_text: 
+                #bot.sendMessage (chat_id=update.message.chat_id, text="Ой, ну хорошо, уговорили :)")
+                #bot.sendMessage (chat_id=update.message.chat_id, text=get_poem_db ())
 
 words = [
     "стих",
@@ -66,6 +67,6 @@ words = [
 conn = None
     
 updater = Updater (token=my_token)
-handler = MessageHandler (Filters.text | Filters.command, handle_message)
+handler = MessageHandler (Filters.all, handle_message)
 updater.dispatcher.add_handler (handler)
 updater.start_polling ()
